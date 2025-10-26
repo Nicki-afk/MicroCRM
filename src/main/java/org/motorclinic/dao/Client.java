@@ -19,13 +19,13 @@ public class Client {
     @Column(name = "ID_CLIENT")
     private Long id;
     @Column(name = "DATE_CALL") private LocalDateTime callData;
-    @Column(name = "NAME" , columnDefinition = "VARCHAR(50) DEFAULT 'НЕИЗВЕСТНО'")  private String name;
+    @Column(name = "NAME")  private String name;
     @Column(name = "PHONE") private String phone;
-    @Column(name = "AUTO" ,   columnDefinition = "VARCHAR(50) DEFAULT 'НЕИЗВЕСТНО'") private String auto;
-    @Column(name = "SOURCE" , columnDefinition = "VARCHAR(50) DEFAULT 'НЕИЗВЕСТНО'") private String source;
-    @Column(name = "DETAIL" , columnDefinition = "TEXT DEFAULT 'НЕИЗВЕСТНО'") private String detail;
+    @Column(name = "AUTO") private String auto;
+    @Column(name = "SOURCE") private String source;
+    @Column(name = "DETAIL") private String detail;
     @Column(name = "BOOKING_DATE") private LocalDateTime record;
-    @Column(name = "MECHNIC" , columnDefinition = "VARCHAR(50) DEFAULT 'НЕИЗВЕСТНО'") private String mechanic;
+    @Column(name = "MECHNIC" ) private String mechanic;
 
 
 

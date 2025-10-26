@@ -1,0 +1,20 @@
+2025-10-26 15:03:35.673349+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "alter table if exists clients alter column auto set data type VARCHAR(50) [*]DEFAULT 'НЕИЗВЕСТНО'"
+Syntax error in SQL statement "alter table if exists clients alter column auto set data type VARCHAR(50) [*]DEFAULT 'НЕИЗВЕСТНО'"; SQL statement:
+alter table if exists clients alter column auto set data type VARCHAR(50) DEFAULT 'НЕИЗВЕСТНО' [42000-232]
+2025-10-26 15:03:35.683342+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "alter table if exists clients alter column mechnic set data type VARCHAR(50) [*]DEFAULT 'НЕИЗВЕСТНО'"
+Syntax error in SQL statement "alter table if exists clients alter column mechnic set data type VARCHAR(50) [*]DEFAULT 'НЕИЗВЕСТНО'"; SQL statement:
+alter table if exists clients alter column mechnic set data type VARCHAR(50) DEFAULT 'НЕИЗВЕСТНО' [42000-232]
+2025-10-26 15:03:35.686343+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "alter table if exists clients alter column name set data type VARCHAR(50) [*]DEFAULT 'НЕИЗВЕСТНО'"
+Syntax error in SQL statement "alter table if exists clients alter column name set data type VARCHAR(50) [*]DEFAULT 'НЕИЗВЕСТНО'"; SQL statement:
+alter table if exists clients alter column name set data type VARCHAR(50) DEFAULT 'НЕИЗВЕСТНО' [42000-232]
+2025-10-26 15:03:35.688339+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "alter table if exists clients alter column source set data type VARCHAR(50) [*]DEFAULT 'НЕИЗВЕСТНО'"
+Syntax error in SQL statement "alter table if exists clients alter column source set data type VARCHAR(50) [*]DEFAULT 'НЕИЗВЕСТНО'"; SQL statement:
+alter table if exists clients alter column source set data type VARCHAR(50) DEFAULT 'НЕИЗВЕСТНО' [42000-232]
+2025-10-26 15:05:34.160994+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "alter table if exists clients alter column mechnic set data type VARCHAR(50) [*]DEFAULT 'НЕИЗВЕСТНО'"
+Syntax error in SQL statement "alter table if exists clients alter column mechnic set data type VARCHAR(50) [*]DEFAULT 'НЕИЗВЕСТНО'"; SQL statement:
+alter table if exists clients alter column mechnic set data type VARCHAR(50) DEFAULT 'НЕИЗВЕСТНО' [42000-232]

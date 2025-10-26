@@ -17,13 +17,16 @@ public class ClientService {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
-    public void saveNewClient(Client newClient) {
+    public boolean saveNewClient(Client newClient) {
+
+
 
         if (!repository.existsByPhone(newClient.getPhone())) {
             repository.save(newClient);
-            logger.info("\uD83D\uDFE2 КЛИЕНТ УСПЕШНО СОХРАНЕН ID НОВОГО КЛИЕНТА : {}", newClient.getId());
+            return true;
         } else {
-            logger.info("\uD83D\uDD34 ПОЛЬЗОВАТЕЛЬ С ТАКИМ НОМЕРОМ УЖЕ СЩЕСТВУЕТ : {}", newClient.getPhone());
+            //    logger.info("\uD83D\uDD34 ПОЛЬЗОВАТЕЛЬ С ТАКИМ НОМЕРОМ УЖЕ СЩЕСТВУЕТ : {}", newClient.getPhone());
+            return false;
         }
     }
 }

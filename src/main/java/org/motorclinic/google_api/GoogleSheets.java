@@ -98,11 +98,7 @@ public class GoogleSheets {
                 List<List<Object>> responseValues = response.getValues();
 
                 logger.info("✔\uFE0F ДАННЫЕ УСПЕШНО ПОЛУЧЕНЫ");
-              //  System.out.println("🔁 Опрашиваю Google Sheets...");
                 this.values = responseValues;
-              //  System.out.println("Записей в таблице  : " + values.size());
-
-                logger.info("✔\uFE0F ДАННЫЕ УСПЕШНО ОБНОВЛЕНЫ В ЛОКАЛЬНОЙ ПАМЯТИ , РАЗМЕР CLIENT_CASH : " + this.values.size());
 
                 if(this.values != null){
                     updateOnDb();
@@ -122,17 +118,21 @@ public class GoogleSheets {
 
     private void updateOnDb(){
 
-        int rowCounter = 0;
-        logger.info("\uD83D\uDD04 ОБНОВЛЕНИЕ ДАННЫХ В БАЗЕ ...");
+        logger.info("\uD83D\uDD04 ОБНОВЛЕНИЕ ДАННЫХ В ЛОКАЛЬНОМ КЕШЕ ...");
         List<Client> clients = generateClientList();
+        logger.info("✔\uFE0F ЛОКАЛЬНЫЙ КЕШ УСПЕШНО ОБНОВЛЕН. РАЗМЕР КЕША : " + clients.size());
+
+        int savedClientCounter = 0;
 
 
         for (Client client : clients) {
-            this.clientService.saveNewClient(client); rowCounter++;
+            if(this.clientService.saveNewClient(client)){
+             savedClientCounter++;
+            }
         }
 
-
-        logger.info("✔\uFE0F ОБНОВЛЕНО СТРОК В БАЗЕ ДАННЫХ : " +  rowCounter);
+      //  logger.info("❗❗ ОБЬЕКТОВ НЕ СОХРАНЕНО : " +  existingClientCounter);
+        logger.info("✔\uFE0F ОБЬЕКТОВ УСПЕШНО СОХРАНЕННЫХ В БД : " +  savedClientCounter);
 
 
     }
@@ -175,7 +175,7 @@ public class GoogleSheets {
             return client;
 
         }catch (IndexOutOfBoundsException e){
-            logger.error("⚠\uFE0F МНОЖЕСТВО ПОЛЕЙ ПОЛЬЗОВАТЕЛЯ НЕДОСТУПНО. ПОЛЬЗОВАТЕЛЬ МОЖЕТ БЫТЬ СОХРАНЕН ЧАСТИЧНО");
+            logger.warn("⚠\uFE0F МНОЖЕСТВО ПОЛЕЙ ПОЛЬЗОВАТЕЛЯ НЕДОСТУПНО. ПОЛЬЗОВАТЕЛЬ МОЖЕТ БЫТЬ СОХРАНЕН ЧАСТИЧНО");
 
         }
 
