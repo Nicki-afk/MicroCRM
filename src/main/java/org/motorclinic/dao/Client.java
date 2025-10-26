@@ -1,9 +1,12 @@
 package org.motorclinic.dao;
 
 import jakarta.persistence.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 
 @Entity
@@ -16,13 +19,15 @@ public class Client {
     @Column(name = "ID_CLIENT")
     private Long id;
     @Column(name = "DATE_CALL") private LocalDateTime callData;
-    @Column(name = "NAME") private String name;
+    @Column(name = "NAME" , columnDefinition = "VARCHAR(50) DEFAULT 'НЕИЗВЕСТНО'")  private String name;
     @Column(name = "PHONE") private String phone;
-    @Column(name = "AUTO") private String auto;
-    @Column(name = "SOURCE") private String source;
-    @Column(name = "DETAIL") private String detail;
+    @Column(name = "AUTO" ,   columnDefinition = "VARCHAR(50) DEFAULT 'НЕИЗВЕСТНО'") private String auto;
+    @Column(name = "SOURCE" , columnDefinition = "VARCHAR(50) DEFAULT 'НЕИЗВЕСТНО'") private String source;
+    @Column(name = "DETAIL" , columnDefinition = "TEXT DEFAULT 'НЕИЗВЕСТНО'") private String detail;
     @Column(name = "BOOKING_DATE") private LocalDateTime record;
-    @Column(name = "MECHNIC") private String mechanic;
+    @Column(name = "MECHNIC" , columnDefinition = "VARCHAR(50) DEFAULT 'НЕИЗВЕСТНО'") private String mechanic;
+
+
 
 
     public Client(){}
@@ -102,6 +107,18 @@ public class Client {
         this.mechanic = mechanic;
     }
 
+    @PrePersist
+    public void setDefaults(){
+
+        this.callData = this.callData ==  null ? LocalDateTime.now() : this.callData;
+        this.auto = this.auto == null ? "НЕИЗВЕСТНО" : this.auto;
+        this.name = this.name == null ? "НЕИЗВЕСТНО" : this.name;
+        this.detail = this.detail == null ? "НЕИЗВЕСТНО" : this.detail;
+        this.mechanic = this.mechanic == null ? "НЕИЗВЕСТНО" : this.mechanic;
+        this.source = this.source == null ? "НЕИЗВЕСТНО" : this.source;
+
+    }
+
     @Override
     public String toString() {
         return "Client{" +
@@ -125,11 +142,16 @@ public class Client {
     }
 
     public static class ClientBuilder{
-
+        private Logger logger = LoggerFactory.getLogger("ClientBuilderLogger");
         public  Client client = new Client();
 
         public  ClientBuilder setCallDate(String callDate){
-            client.setCallData(LocalDateTime.parse(callDate, DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")));
+            try {
+                client.setCallData(LocalDateTime.parse(callDate, DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")));
+            }catch(DateTimeParseException dateTimeParseException){
+                logger.warn("⚠\uFE0F ПОЛЕ ДАТА БЫЛО ЗАПОЛНЕНО НЕККОРЕКТНО. ДАТА И ВРЕМЯ БЫЛА ПРОСТАВЛЕНА АВТОМАТИЧЕСКИ");
+                client.setCallData(LocalDateTime.now());
+            }
             return this;
         }
 

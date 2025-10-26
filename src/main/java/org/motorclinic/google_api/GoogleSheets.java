@@ -48,6 +48,7 @@ public class GoogleSheets {
     final String range = "CLIENT_DATA!A2:ZZZ";
 
 
+
     private static final List<String> SCOPES =
             Collections.singletonList(SheetsScopes.SPREADSHEETS_READONLY);
     private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
@@ -174,7 +175,24 @@ public class GoogleSheets {
             return client;
 
         }catch (IndexOutOfBoundsException e){
-            logger.error("❌ НЕ УДАЛОСЬ СОХРАНИТЬ ПОЛЬЗОВАТЛЯ , ЗАПОЛНЕНЫ НЕ ВСЕ ПОЛЯ ");
+            logger.error("⚠\uFE0F МНОЖЕСТВО ПОЛЕЙ ПОЛЬЗОВАТЕЛЯ НЕДОСТУПНО. ПОЛЬЗОВАТЕЛЬ МОЖЕТ БЫТЬ СОХРАНЕН ЧАСТИЧНО");
+
+        }
+
+
+        try{
+            client = new Client.ClientBuilder()
+                    .setCallDate(clientData.get(0).toString())
+                    .setName(clientData.get(1).toString())
+                    .setPhone(clientData.get(2).toString())
+                    .build();
+
+            logger.info("\uD83D\uDFE1 ПОЛЬЗОВАТЕЛЬ СОХРАНЕН ЧАСТИЧНО. НЕОБХОДИМО ДОПОЛНИТЬ ДАННЫЕ");
+
+            return client;
+        } catch (IndexOutOfBoundsException e) {
+
+            logger.error("❌ НЕУДАЛОСЬ СОХРАНИТЬ ПОЛЬЗОВАТЕЛЯ. ОТСУТСВУЮТ КЛЮЧЕВЫЕ ПОЛЯ (НОМЕР ТЕЛЕФОНА , ИМЯ)");
             return null;
 
         }
